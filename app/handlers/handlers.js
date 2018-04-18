@@ -3,12 +3,23 @@
 const States = require('./states');
 const util = require('../common/util');
 const reportAPI = require('../common/report');
+const inNewSessionStartableIntents = [
+    'selectReportAndAirportIntent'
+];
 
 module.exports = {
     'NewSession': function () {
-        this.emit('LaunchRequest');
+        // intent request
+        if (this.event.request.type === 'IntentRequest') {
+            let intentName = this.event.request.intent.name;
+            if (inNewSessionStartableIntents.indexOf(intentName) > -1) {
+                return this.emit(intentName);
+            }
+        }
+        // launch intent
+        this.emit('LaunchIntent');
     },
-    'LaunchRequest': function () {
+    'LaunchIntent': function () {
         this.emit(':ask', this.t('WELCOME'));
     },
     'selectReportAndAirportIntent': function () {
