@@ -1,0 +1,21 @@
+{
+  "name": "skill-template",
+  "version": "1.0.0",
+  "description": "This repository contains a basic template for Alexa skills.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "amazon",
+    "alexa",
+    "skill",
+    "template",
+    "javascript"
+  ],
+  "author": "philenius",
+  "license": "ISC",
+  "dependencies": {
+    "alexa-sdk": "^1.0.22",
+  }
+}
