@@ -14,5 +14,6 @@ module.exports = {
         if (icaoCode === 'KSAC') {
             return '<say-as interpret-as="ordinal">K-SAC</say-as>';
         }
+        return '<say-as interpret-as="characters">' + icaoCode + '</say-as>';
     },
 };

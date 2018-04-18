@@ -2,6 +2,7 @@
 
 const States = require('./states');
 const util = require('../common/util');
+const reportAPI = require('../common/report');
 
 module.exports = {
     'NewSession': function () {
@@ -18,8 +19,12 @@ module.exports = {
         let fourthLetter = this.event.request.intent.slots.fourthLetter.value;
 
         let icaoCode = util.buildICAO(firstLetter, secondLetter, thirdLetter, fourthLetter);
-        this.emit(':tell', 'Here comes your ' + report +
-            ' report for ' + util.pronounceIcaoCode(icaoCode));
+        let spokenReport = reportAPI.getMetarReportFor(icaoCode).then((spokenReport) => {
+            this.emit(':tell', 'Here comes your ' + report +
+            ' report for ' + util.pronounceIcaoCode(icaoCode) + ' <break time="1s"/> ' + spokenReport);
+        }).catch((error) => {
+            this.emit(':tell', 'I\'m sorry, there was a problem.');
+        });
     },
     'Unhandled': function () {
     },
