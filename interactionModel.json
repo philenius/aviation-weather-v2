@@ -14,6 +14,10 @@
                 {
                     "name": "AMAZON.StopIntent",
                     "samples": [
+                        "I'm good",
+                        "no thanks that's it",
+                        "no thanks",
+                        "that's it",
                         "awesome",
                         "great",
                         "perfect",
@@ -59,10 +63,23 @@
                         }
                     ],
                     "samples": [
+                        "Can you tell me the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "Can you tell me the {report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "I want the {report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "I'd like to know the {report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "Please tell me the {report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "Please tell me the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "I'd like to know the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "I want the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "{firstLetter} {secondLetter} {thirdLetter} {fourthLetter} {report}",
                         "{report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
                         "{report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
                         "tell me the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}"
                     ]
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": []
                 }
             ],
             "types": [
@@ -316,7 +333,7 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Sorry, I couldn't understand which report you would like to hear. Please say that again."
+                        "value": "What kind of report would you like to hear?"
                     }
                 ]
             }

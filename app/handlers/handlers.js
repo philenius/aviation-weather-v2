@@ -37,18 +37,16 @@ module.exports = {
         let fourthLetter = this.event.request.intent.slots.fourthLetter.value;
 
         let icaoCode = util.buildICAO(firstLetter, secondLetter, thirdLetter, fourthLetter);
-        let spokenReport = reportAPI.getMetarReportFor(icaoCode).then((spokenReport) => {
+        reportAPI.getMetarReportFor(icaoCode).then((spokenReport) => {
 
-            this.response.speak('Here comes your ' + report +
-                ' report for ' + util.pronounceIcaoCode(icaoCode) +
-                ' <break time="1s"/> ' + spokenReport)
-                .listen();
+            this.response
+                .speak(this.t('METAR_REPORT_ANSWER', util.pronounceIcaoCode(icaoCode), spokenReport))
+                .listen(this.t('METAR_REPORT_ANSWER_REPROMPT'));
             this.emit(':responseReady');
 
         }).catch((error) => {
 
-            this.response.speak('I\'m sorry, there was a problem.');
-            this.emit(':responseReady');
+            this.emit('Unhandled');
 
         });
     },
@@ -60,10 +58,13 @@ module.exports = {
         this.response.speak(util.random(this.t('FAREWELL')));
         this.emit(':responseReady');
     },
+    'AMAZON.NoIntent': function () {
+        console.log("NOINTENT");
+        this.emit('AMAZON.CancelIntent');
+    },
     'AMAZON.StopIntent': function () {
         console.log("STOPINTENT");
-        this.response.speak(util.random(this.t('FAREWELL')));
-        this.emit(':responseReady');
+        this.emit('AMAZON.CancelIntent');
     },
     'AMAZON.CancelIntent': function () {
         console.log("CANCELINTENT");
