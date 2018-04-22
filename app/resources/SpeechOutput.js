@@ -3,7 +3,10 @@ module.exports = {
         "translation": {
             'WELCOME': '<p>Welcome to aviation weather.</p> <p>I can tell you about METAR and TFA reports. Please use the NATO alphabet to spell the <say-as interpret-as="characters">ICAO</say-as> code for your desired airport.</p> To ask for the METAR report simply say: <break time="600ms"/> tell me the METAR report for blablabla. <break time="600ms"/> Please keep in mind that this is still a very alpha version. So, how can I help you?',
             'METAR_REPORT_ANSWER': 'Here comes your METAR report for %s <break time="1s"/> %s',
-            'METAR_REPORT_ANSWER_REPROMPT': 'Do you have any further questions?',
+            'METAR_REPORT_ANSWER_REPROMPT': [
+                'Can I help you with anything else?',
+                'Is there anything else that I can help you with?',
+            ],
             'FAREWELL': [
                 '<say-as interpret-as="interjection">ahoy</say-as>',
                 '<say-as interpret-as="interjection">all righty</say-as>',

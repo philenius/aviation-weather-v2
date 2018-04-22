@@ -24,10 +24,12 @@ module.exports = {
         this.emit(':responseReady');
     },
     'selectReportAndAirportIntent': function () {
+        util.delegateSlotCollection.call(this);
+
         let report = this.event.request.intent.slots.report.value.toUpperCase();
 
         if (report === 'TFA') {
-            this.emit(':tell', '<say-as interpret-as="interjection">oh boy</say-as>, I don\'t know that one.');
+            this.emit(':tell', '<say-as interpret-as="interjection">oh boy</say-as>, this is something I don\'t know yet.');
             return;
         }
 
@@ -41,7 +43,7 @@ module.exports = {
 
             this.response
                 .speak(this.t('METAR_REPORT_ANSWER', util.pronounceIcaoCode(icaoCode), spokenReport))
-                .listen(this.t('METAR_REPORT_ANSWER_REPROMPT'));
+                .listen(util.random(this.t('METAR_REPORT_ANSWER_REPROMPT')));
             this.emit(':responseReady');
 
         }).catch((error) => {
