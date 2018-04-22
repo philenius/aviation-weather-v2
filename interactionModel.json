@@ -1,22 +1,325 @@
 {
-  "interactionModel": {
-      "languageModel": {
-          "invocationName": "",
-          "intents": [
-              {
-                  "name": "AMAZON.CancelIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.HelpIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.StopIntent",
-                  "samples": []
-              }
-          ],
-          "types": []
-      }
-  }
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "aviation weather",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": [
+                        "awesome",
+                        "great",
+                        "perfect",
+                        "alright",
+                        "okay",
+                        "enough",
+                        "that's enough",
+                        "thanks",
+                        "thank you",
+                        "bye"
+                    ]
+                },
+                {
+                    "name": "selectReportAndAirportIntent",
+                    "slots": [
+                        {
+                            "name": "report",
+                            "type": "reportSlotType",
+                            "samples": [
+                                "I want to hear the {report} report",
+                                "i want to hear the {report}",
+                                "{report}"
+                            ]
+                        },
+                        {
+                            "name": "firstLetter",
+                            "type": "NATOPhoneticAlphabet",
+                            "samples": [
+                                "{firstLetter} {secondLetter} {thirdLetter} {fourthLetter}"
+                            ]
+                        },
+                        {
+                            "name": "secondLetter",
+                            "type": "NATOPhoneticAlphabet"
+                        },
+                        {
+                            "name": "thirdLetter",
+                            "type": "NATOPhoneticAlphabet"
+                        },
+                        {
+                            "name": "fourthLetter",
+                            "type": "NATOPhoneticAlphabet"
+                        }
+                    ],
+                    "samples": [
+                        "{report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "{report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "tell me the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "NATOPhoneticAlphabet",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "Alpha"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Bravo"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Charlie"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Delta"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Echo"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Foxtrot"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Golf"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Hotel"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "India"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Juliet"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Kilo"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Lima"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Mike"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "November"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Oscar"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Papa"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Quebec"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Romeo"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Sierra"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Tango"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Uniform"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Victor"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Whiskey"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "X-ray"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Yankee"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Zulu"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "reportSlotType",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "tfa"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "metar"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "selectReportAndAirportIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "report",
+                            "type": "reportSlotType",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.31763961718.945385784498"
+                            }
+                        },
+                        {
+                            "name": "firstLetter",
+                            "type": "NATOPhoneticAlphabet",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.448946119884.656130839865"
+                            }
+                        },
+                        {
+                            "name": "secondLetter",
+                            "type": "NATOPhoneticAlphabet",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.448946119884.1022988221656"
+                            }
+                        },
+                        {
+                            "name": "thirdLetter",
+                            "type": "NATOPhoneticAlphabet",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.448946119884.108046816607"
+                            }
+                        },
+                        {
+                            "name": "fourthLetter",
+                            "type": "NATOPhoneticAlphabet",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.448946119884.1468555775721"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.448946119884.656130839865",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Sorry, I couldn't understand you. Please repeat the ICAO code of your desire airport."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.448946119884.1022988221656",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Sorry, I couldn't understand you. Please repeat the ICAO code of your desire airport."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.448946119884.108046816607",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Sorry, I couldn't understand you. Please repeat the ICAO code of your desire airport."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.448946119884.1468555775721",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Sorry, I couldn't understand you. Please repeat the ICAO code of your desire airport."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.31763961718.945385784498",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Sorry, I couldn't understand which report you would like to hear. Please say that again."
+                    }
+                ]
+            }
+        ]
+    }
 }

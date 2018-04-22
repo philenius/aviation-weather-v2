@@ -20,10 +20,17 @@ module.exports = {
         this.emit('LaunchIntent');
     },
     'LaunchIntent': function () {
-        this.emit(':ask', this.t('WELCOME'));
+        this.response.speak(this.t('WELCOME')).listen();
+        this.emit(':responseReady');
     },
     'selectReportAndAirportIntent': function () {
         let report = this.event.request.intent.slots.report.value.toUpperCase();
+
+        if (report === 'TFA') {
+            this.emit(':tell', '<say-as interpret-as="interjection">oh boy</say-as>, I don\'t know that one.');
+            return;
+        }
+
         let firstLetter = this.event.request.intent.slots.firstLetter.value;
         let secondLetter = this.event.request.intent.slots.secondLetter.value;
         let thirdLetter = this.event.request.intent.slots.thirdLetter.value;
@@ -31,17 +38,37 @@ module.exports = {
 
         let icaoCode = util.buildICAO(firstLetter, secondLetter, thirdLetter, fourthLetter);
         let spokenReport = reportAPI.getMetarReportFor(icaoCode).then((spokenReport) => {
-            this.emit(':tell', 'Here comes your ' + report +
-            ' report for ' + util.pronounceIcaoCode(icaoCode) + ' <break time="1s"/> ' + spokenReport);
+
+            this.response.speak('Here comes your ' + report +
+                ' report for ' + util.pronounceIcaoCode(icaoCode) +
+                ' <break time="1s"/> ' + spokenReport)
+                .listen();
+            this.emit(':responseReady');
+
         }).catch((error) => {
-            this.emit(':tell', 'I\'m sorry, there was a problem.');
+
+            this.response.speak('I\'m sorry, there was a problem.');
+            this.emit(':responseReady');
+
         });
     },
     'Unhandled': function () {
+        this.emit(':tell', util.random(this.t('UNHANDLED')));
+    },
+    'SessionEndedRequest': function () {
+        console.log('SESSIONENDEDREQUEST');
+        this.response.speak(util.random(this.t('FAREWELL')));
+        this.emit(':responseReady');
     },
     'AMAZON.StopIntent': function () {
+        console.log("STOPINTENT");
+        this.response.speak(util.random(this.t('FAREWELL')));
+        this.emit(':responseReady');
     },
     'AMAZON.CancelIntent': function () {
+        console.log("CANCELINTENT");
+        this.response.speak(util.random(this.t('FAREWELL')));
+        this.emit(':responseReady');
     },
     'AMAZON.HelpIntent': function () {
     }

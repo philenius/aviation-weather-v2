@@ -16,4 +16,9 @@ module.exports = {
         }
         return '<say-as interpret-as="characters">' + icaoCode + '</say-as>';
     },
+    'random': function (speechOutputArray) {
+        var i = 0;
+        i = Math.floor(Math.random() * speechOutputArray.length);
+        return speechOutputArray[i];
+    },
 };
