@@ -37,6 +37,7 @@
                             "name": "report",
                             "type": "reportSlotType",
                             "samples": [
+                                "{report} report",
                                 "I want to hear the {report} report",
                                 "i want to hear the {report}",
                                 "{report}"
@@ -46,23 +47,39 @@
                             "name": "firstLetter",
                             "type": "NATOPhoneticAlphabet",
                             "samples": [
+                                "{firstLetter}",
                                 "{firstLetter} {secondLetter} {thirdLetter} {fourthLetter}"
                             ]
                         },
                         {
                             "name": "secondLetter",
-                            "type": "NATOPhoneticAlphabet"
+                            "type": "NATOPhoneticAlphabet",
+                            "samples": [
+                                "{secondLetter}",
+                                "{firstLetter} {secondLetter} {thirdLetter} {fourthLetter}"
+                            ]
                         },
                         {
                             "name": "thirdLetter",
-                            "type": "NATOPhoneticAlphabet"
+                            "type": "NATOPhoneticAlphabet",
+                            "samples": [
+                                "{thirdLetter}",
+                                "{firstLetter} {secondLetter} {thirdLetter} {fourthLetter}"
+                            ]
                         },
                         {
                             "name": "fourthLetter",
-                            "type": "NATOPhoneticAlphabet"
+                            "type": "NATOPhoneticAlphabet",
+                            "samples": [
+                                "{fourthLetter}",
+                                "{firstLetter} {secondLetter} {thirdLetter} {fourthLetter}"
+                            ]
                         }
                     ],
                     "samples": [
+                        "{report} report",
+                        "{report}",
+                        "{firstLetter} {secondLetter} {thirdLetter} {fourthLetter} ",
                         "Can you tell me the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
                         "Can you tell me the {report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
                         "I want the {report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
@@ -297,7 +314,7 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Sorry, I couldn't understand you. Please repeat the ICAO code of your desire airport."
+                        "value": "Please tell me the first letter of the I-C-A-O code of your desired airport. You can also tell me the whole I-C-A-O code at once."
                     }
                 ]
             },
@@ -306,7 +323,7 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Sorry, I couldn't understand you. Please repeat the ICAO code of your desire airport."
+                        "value": "Please tell me the second letter of the I-C-A-O code of your desired airport. You can also tell me the whole I-C-A-O code at once."
                     }
                 ]
             },
@@ -315,7 +332,7 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Sorry, I couldn't understand you. Please repeat the ICAO code of your desire airport."
+                        "value": "Please tell me the third letter of the I-C-A-O code of your desired airport. You can also tell me the whole I-C-A-O code at once."
                     }
                 ]
             },
@@ -324,7 +341,7 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Sorry, I couldn't understand you. Please repeat the ICAO code of your desire airport."
+                        "value": "Please tell me the fourth letter of the I-C-A-O code of your desired airport. You can also tell me the whole I-C-A-O code at once."
                     }
                 ]
             },

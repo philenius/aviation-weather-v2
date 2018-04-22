@@ -7,6 +7,11 @@ module.exports = {
                 'Can I help you with anything else?',
                 'Is there anything else that I can help you with?',
             ],
+            'METAR_REPORT_ERROR_ICAO_NOT_FOUND': 'I couldn\'t find any information for the ' +
+                '<say-as interpret-as="characters">ICAO</say-as> code <break time="200ms"/> %s' +
+                '. Please make sure that the given airport exists and try again.',
+            'METAR_REPORT_ERROR': 'I\'m sorry, something went wrong. I\'m having troubles to process your request. ' +
+                'Please come back later.',
             'FAREWELL': [
                 '<say-as interpret-as="interjection">ahoy</say-as>',
                 '<say-as interpret-as="interjection">all righty</say-as>',

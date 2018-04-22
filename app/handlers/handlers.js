@@ -47,9 +47,16 @@ module.exports = {
             this.emit(':responseReady');
 
         }).catch((error) => {
-
-            this.emit('Unhandled');
-
+            if (error.message === 'ICAO code not found') {
+                this.response
+                    .speak(
+                        this.t('METAR_REPORT_ERROR_ICAO_NOT_FOUND', util.pronounceIcaoCode(icaoCode))
+                    )
+                    .listen(this.t('METAR_REPORT_ANSWER_REPROMPT'));
+            } else {
+                this.response.speak(this.t('METAR_REPORT_ERROR'));
+            }
+            this.emit(':responseReady');
         });
     },
     'Unhandled': function () {
@@ -61,18 +68,16 @@ module.exports = {
         this.emit(':responseReady');
     },
     'AMAZON.NoIntent': function () {
-        console.log("NOINTENT");
         this.emit('AMAZON.CancelIntent');
     },
     'AMAZON.StopIntent': function () {
-        console.log("STOPINTENT");
         this.emit('AMAZON.CancelIntent');
     },
     'AMAZON.CancelIntent': function () {
-        console.log("CANCELINTENT");
         this.response.speak(util.random(this.t('FAREWELL')));
         this.emit(':responseReady');
     },
     'AMAZON.HelpIntent': function () {
+        this.emit(':tell', 'Sorry, my developer hasn\'t implemented this feature, yet. Please ask again in a few days.');
     }
 };
