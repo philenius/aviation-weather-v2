@@ -314,7 +314,7 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Please tell me the first letter of the I-C-A-O code of your desired airport. You can also tell me the whole I-C-A-O code at once."
+                        "value": "Please tell me the I-C-A-O code of your desired airport using the NATO alphabet."
                     }
                 ]
             },
@@ -323,7 +323,7 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Please tell me the second letter of the I-C-A-O code of your desired airport. You can also tell me the whole I-C-A-O code at once."
+                        "value": "Please tell me the I-C-A-O code of your desired airport using the NATO alphabet."
                     }
                 ]
             },
@@ -332,7 +332,7 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Please tell me the third letter of the I-C-A-O code of your desired airport. You can also tell me the whole I-C-A-O code at once."
+                        "value": "Please tell me the I-C-A-O code of your desired airport using the NATO alphabet."
                     }
                 ]
             },
@@ -341,7 +341,7 @@
                 "variations": [
                     {
                         "type": "PlainText",
-                        "value": "Please tell me the fourth letter of the I-C-A-O code of your desired airport. You can also tell me the whole I-C-A-O code at once."
+                        "value": "Please tell me the I-C-A-O code of your desired airport using the NATO alphabet."
                     }
                 ]
             },

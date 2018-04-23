@@ -20,6 +20,7 @@
   Tell me the metar report for kilo sierra alpha charlie.
 * **Alexa**, ask aviation weather for the metar report.
 * **Alexa**, ask aviation weather for the metar report for kilo sierra alpha charlie.
+* **Alexa**, ask aviation weather for the metar report for alpha alpha alpha alpha.
 
 ## Development
 * Run: 

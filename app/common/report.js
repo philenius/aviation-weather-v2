@@ -36,7 +36,6 @@ module.exports = {
                     resolve(JSON.parse(body).Speech);
                 });
                 res.on('error', (error) => {
-                    console.error('################ on error');
                     reject(error);
                 });
             });
