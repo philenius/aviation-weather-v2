@@ -37,6 +37,8 @@
                             "name": "report",
                             "type": "reportSlotType",
                             "samples": [
+                                "tell me the {report}",
+                                "tell me the {report} report",
                                 "{report} report",
                                 "I want to hear the {report} report",
                                 "i want to hear the {report}",
