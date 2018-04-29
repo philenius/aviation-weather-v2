@@ -16,6 +16,7 @@
   "author": "philenius",
   "license": "ISC",
   "dependencies": {
-    "alexa-sdk": "^1.0.22"
+    "alexa-sdk": "^1.0.22",
+    "metar": "^1.0.0"
   }
 }
