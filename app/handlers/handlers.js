@@ -39,11 +39,11 @@ module.exports = {
         let fourthLetter = this.event.request.intent.slots.fourthLetter.value;
 
         let icaoCode = util.buildICAO(firstLetter, secondLetter, thirdLetter, fourthLetter);
-        reportAPI.getMetarReportFor(icaoCode).then((spokenReport) => {
+        reportAPI.getMetarReportFor(icaoCode).then((alexaOutput) => {
 
-            this.response
-                .speak(this.t('METAR_REPORT_ANSWER', util.pronounceIcaoCode(icaoCode), spokenReport))
-                .listen(util.random(this.t('METAR_REPORT_ANSWER_REPROMPT')));
+            this.response.speak(this.t('METAR_REPORT_ANSWER', util.pronounceIcaoCode(icaoCode), alexaOutput.speechOutput));
+            this.response.listen(util.random(this.t('METAR_REPORT_ANSWER_REPROMPT')));
+            this.response.cardRenderer(alexaOutput.card.title, alexaOutput.card.content);
             this.emit(':responseReady');
 
         }).catch((error) => {
