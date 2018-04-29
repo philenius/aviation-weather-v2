@@ -79,6 +79,8 @@
                         }
                     ],
                     "samples": [
+                        "tell me the {report}",
+                        "tell me the {report} report",
                         "{report} report",
                         "{report}",
                         "{firstLetter} {secondLetter} {thirdLetter} {fourthLetter} ",
