@@ -9,7 +9,7 @@ const nameHandlers = require('./app/handlers/nameHandlers');
 const reportHandlers = require('./app/handlers/reportHandler');
 const SpeechOutput = require('./app/resources/SpeechOutput');
 
-const APP_ID = 'amzn1.ask.skill.c9b65513-6b7d-4949-9772-8244742b5687';
+const APP_ID = 'amzn1.ask.skill.006cc714-bd60-4782-a442-c9bb11194c72';
 const DEV = process.env.DEV || false;
 
 exports.handler = function (event, context, callback) {
