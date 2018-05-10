@@ -2,73 +2,53 @@
 
 const States = require('./states');
 const util = require('../common/util');
-const reportAPI = require('../common/report');
-const inNewSessionStartableIntents = [
-    'selectReportAndAirportIntent'
-];
 
 module.exports = {
     'NewSession': function () {
-        // intent request
+        if (this.attributes['launchCount']) { // user must have launched the skill before
+            console.log(`######## ${JSON.stringify(this.attributes)}`);
+            const launchCount = this.attributes['launchCount'];
+            this.attributes['launchCount'] = parseInt(launchCount) + 1;
+        } else {
+            this.attributes.launchCount = 1;
+            this.attributes.name = '_';
+        }
+        this.attributes.lastInvocation = new Date();
+
         if (this.event.request.type === 'IntentRequest') {
             let intentName = this.event.request.intent.name;
-            if (inNewSessionStartableIntents.indexOf(intentName) > -1) {
-                return this.emit(intentName);
+
+            if (intentName === 'SelectReportAndAirportIntent') {
+                this.handler.state = States.REPORT;
+                this.emitWithState(intentName);
+                return;
+            } else if (intentName === 'NameIntent') {
+                this.handler.state = States.NAME;
+                this.emitWithState(intentName);
+                return;
             }
         }
-        // launch intent
-        this.emit('LaunchIntent');
+        this.emit('LaunchRequest');
     },
-    'LaunchIntent': function () {
-        this.response.speak(this.t('WELCOME')).listen(this.t('WELCOME'));
-        this.emit(':responseReady');
-    },
-    'selectReportAndAirportIntent': function () {
-        util.delegateSlotCollection.call(this);
-
-        let report = this.event.request.intent.slots.report.value.toUpperCase();
-
-        if (report === 'TFA') {
-            this.emit(':tell', '<say-as interpret-as="interjection">oh boy</say-as>, this is something I don\'t know yet.');
+    'LaunchRequest': function () {
+        if (this.attributes.launchCount === 1) {
+            this.handler.state = States.NAME;
+            this.emit(':ask', this.t('WELCOME_FIRST'), this.t('WELCOME_FIRST_REPROMPT'));
             return;
         }
 
-        let firstLetter = this.event.request.intent.slots.firstLetter.value;
-        let secondLetter = this.event.request.intent.slots.secondLetter.value;
-        let thirdLetter = this.event.request.intent.slots.thirdLetter.value;
-        let fourthLetter = this.event.request.intent.slots.fourthLetter.value;
-
-        let icaoCode = util.buildICAO(firstLetter, secondLetter, thirdLetter, fourthLetter);
-        reportAPI.getMetarReportFor(icaoCode).then((alexaOutput) => {
-
-            this.response.speak(this.t('METAR_REPORT_ANSWER', util.pronounceIcaoCode(icaoCode), alexaOutput.speechOutput));
-            this.response.listen(util.random(this.t('METAR_REPORT_ANSWER_REPROMPT')));
-            this.response.cardRenderer(alexaOutput.card.title, alexaOutput.card.content);
-            this.emit(':responseReady');
-
-        }).catch((error) => {
-            if (error.message === 'ICAO code not found') {
-                this.response
-                    .speak(
-                        this.t('METAR_REPORT_ERROR_ICAO_NOT_FOUND', util.pronounceIcaoCode(icaoCode))
-                    )
-                    .listen(this.t('METAR_REPORT_ANSWER_REPROMPT'));
-            } else {
-                this.response.speak(this.t('METAR_REPORT_ERROR'));
-            }
-            this.emit(':responseReady');
-        });
+        this.handler.state = States.MAIN;
+        const name = this.attributes.name;
+        if (name !== '_') {
+            return this.emit(':ask', this.t('WELCOME_WITH_NAME', name), this.t('WELCOME_REPROMPT'));
+        }
+        this.emit(':ask', this.t('WELCOME'), this.t('WELCOME_REPROMPT'));
     },
     'Unhandled': function () {
         this.emit(':tell', util.random(this.t('UNHANDLED')));
     },
     'SessionEndedRequest': function () {
-        console.log('SESSIONENDEDREQUEST');
-        this.response.speak(util.random(this.t('FAREWELL')));
         this.emit(':responseReady');
-    },
-    'AMAZON.NoIntent': function () {
-        this.emit('AMAZON.CancelIntent');
     },
     'AMAZON.StopIntent': function () {
         this.emit('AMAZON.CancelIntent');
@@ -79,5 +59,5 @@ module.exports = {
     },
     'AMAZON.HelpIntent': function () {
         this.emit(':tell', 'Sorry, my developer hasn\'t implemented this feature, yet. Please ask again in a few days.');
-    }
+    },
 };

@@ -31,7 +31,7 @@
                     ]
                 },
                 {
-                    "name": "selectReportAndAirportIntent",
+                    "name": "SelectReportAndAirportIntent",
                     "slots": [
                         {
                             "name": "report",
@@ -79,17 +79,21 @@
                         }
                     ],
                     "samples": [
+                        "tell me the aviation weather",
+                        "tell me the weather",
+                        "please tell me the {report} report",
+                        "please tell me the {report}",
                         "tell me the {report}",
                         "tell me the {report} report",
                         "{report} report",
                         "{report}",
                         "{firstLetter} {secondLetter} {thirdLetter} {fourthLetter} ",
-                        "Can you tell me the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
-                        "Can you tell me the {report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "can you tell me the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "can you tell me the {report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
                         "I want the {report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
                         "I'd like to know the {report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
-                        "Please tell me the {report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
-                        "Please tell me the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "please tell me the {report} report for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
+                        "please tell me the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
                         "I'd like to know the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
                         "I want the {report} for {firstLetter} {secondLetter} {thirdLetter} {fourthLetter}",
                         "{firstLetter} {secondLetter} {thirdLetter} {fourthLetter} {report}",
@@ -101,6 +105,61 @@
                 {
                     "name": "AMAZON.NoIntent",
                     "samples": []
+                },
+                {
+                    "name": "NameIntent",
+                    "slots": [
+                        {
+                            "name": "name",
+                            "type": "AMAZON.US_FIRST_NAME"
+                        }
+                    ],
+                    "samples": [
+                        "my forename is {name}",
+                        "my first name is {name}",
+                        "I'm {name}",
+                        "my name is {name}",
+                        "{name}"
+                    ]
+                },
+                {
+                    "name": "ChangeNameIntent",
+                    "slots": [],
+                    "samples": [
+                        "change name",
+                        "change settings",
+                        "i want to change my name settings",
+                        "i want to set my name",
+                        "please remember my name",
+                        "i want to change my name",
+                        "greet me with my name",
+                        "store my name",
+                        "change my name settings",
+                        "change my name",
+                        "remember my name"
+                    ]
+                },
+                {
+                    "name": "EraseNameIntent",
+                    "slots": [],
+                    "samples": [
+                        "don't remember my name anymore",
+                        "I don't want you to remember my name",
+                        "erase my name",
+                        "delete my name",
+                        "forget my name",
+                        "I don't want you to remember my name anymore",
+                        "don't remember my name"
+                    ]
+                },
+                {
+                    "name": "NoNameIntent",
+                    "slots": [],
+                    "samples": [
+                        "I don't want to tell you my forename",
+                        "I don't want to tell you my first name",
+                        "I don't want to tell you my name"
+                    ]
                 }
             ],
             "types": [
@@ -259,7 +318,7 @@
         "dialog": {
             "intents": [
                 {
-                    "name": "selectReportAndAirportIntent",
+                    "name": "SelectReportAndAirportIntent",
                     "confirmationRequired": false,
                     "prompts": {},
                     "slots": [
