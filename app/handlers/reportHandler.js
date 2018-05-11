@@ -19,36 +19,40 @@ module.exports = Alexa.CreateStateHandler(States.REPORT, {
         let report = this.event.request.intent.slots.report.value.toUpperCase();
 
         if (report === 'TAF') {
-            return this.emit(':tell', '<say-as interpret-as="interjection">oh boy</say-as>, I don\'t understand TAF reports yet.');
+            return this.emit(':tell', '<say-as interpret-as="interjection">oh boy</say-as>, I don\'t understand <say-as interpret-as="characters">TAF</say-as> reports yet.');
+        } else if (report === 'METAR') {
+
+            let firstLetter = this.event.request.intent.slots.firstLetter.value;
+            let secondLetter = this.event.request.intent.slots.secondLetter.value;
+            let thirdLetter = this.event.request.intent.slots.thirdLetter.value;
+            let fourthLetter = this.event.request.intent.slots.fourthLetter.value;
+            let icaoCode = util.buildICAO(firstLetter, secondLetter, thirdLetter, fourthLetter);
+
+            reportAPI.getMetarReportFor(icaoCode).then((alexaOutput) => {
+
+                this.attributes.icao = icaoCode;
+
+                this.response.speak(this.t('METAR_REPORT_ANSWER', util.pronounceIcaoCode(icaoCode), alexaOutput.speechOutput));
+                this.response.listen(util.random(this.t('METAR_REPORT_ANSWER_REPROMPT')));
+                this.response.cardRenderer(alexaOutput.card.title, alexaOutput.card.content);
+                this.emit(':responseReady');
+
+            }).catch((error) => {
+                if (error.message === 'ICAO code not found') {
+                    this.response
+                        .speak(
+                            this.t('METAR_REPORT_ERROR_ICAO_NOT_FOUND', util.pronounceIcaoCode(icaoCode))
+                        )
+                        .listen(util.random(this.t('METAR_REPORT_ANSWER_REPROMPT')));
+                } else {
+                    this.response.speak(this.t('METAR_REPORT_ERROR'));
+                }
+                this.emit(':responseReady');
+            });
+
+        } else {
+            return this.emit(':tell', 'I never heard of this type of report before. Sorry, I can only understand METAR and <say-as interpret-as="characters">TAF</say-as> reports.');
         }
-
-        let firstLetter = this.event.request.intent.slots.firstLetter.value;
-        let secondLetter = this.event.request.intent.slots.secondLetter.value;
-        let thirdLetter = this.event.request.intent.slots.thirdLetter.value;
-        let fourthLetter = this.event.request.intent.slots.fourthLetter.value;
-        let icaoCode = util.buildICAO(firstLetter, secondLetter, thirdLetter, fourthLetter);
-
-        reportAPI.getMetarReportFor(icaoCode).then((alexaOutput) => {
-
-            this.attributes.icao = icaoCode;
-
-            this.response.speak(this.t('METAR_REPORT_ANSWER', util.pronounceIcaoCode(icaoCode), alexaOutput.speechOutput));
-            this.response.listen(util.random(this.t('METAR_REPORT_ANSWER_REPROMPT')));
-            this.response.cardRenderer(alexaOutput.card.title, alexaOutput.card.content);
-            this.emit(':responseReady');
-
-        }).catch((error) => {
-            if (error.message === 'ICAO code not found') {
-                this.response
-                    .speak(
-                        this.t('METAR_REPORT_ERROR_ICAO_NOT_FOUND', util.pronounceIcaoCode(icaoCode))
-                    )
-                    .listen(util.random(this.t('METAR_REPORT_ANSWER_REPROMPT')));
-            } else {
-                this.response.speak(this.t('METAR_REPORT_ERROR'));
-            }
-            this.emit(':responseReady');
-        });
     },
     'Unhandled': function () {
         this.emit('Unhandled');

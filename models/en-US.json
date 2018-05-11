@@ -303,12 +303,20 @@
                     "values": [
                         {
                             "name": {
-                                "value": "taf"
+                                "value": "taf",
+                                "synonyms": [
+                                    "T.A.F.",
+                                    "t.a.f"
+                                ]
                             }
                         },
                         {
                             "name": {
-                                "value": "metar"
+                                "value": "metar",
+                                "synonyms": [
+                                    "M.E.T.A.R.",
+                                    "m.e.t.a.r."
+                                ]
                             }
                         }
                     ]
