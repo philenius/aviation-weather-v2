@@ -6,7 +6,6 @@ const util = require('../common/util');
 module.exports = {
     'NewSession': function () {
         if (this.attributes['launchCount']) { // user must have launched the skill before
-            console.log(`######## ${JSON.stringify(this.attributes)}`);
             const launchCount = this.attributes['launchCount'];
             this.attributes['launchCount'] = parseInt(launchCount) + 1;
         } else {
@@ -20,12 +19,10 @@ module.exports = {
 
             if (intentName === 'SelectReportAndAirportIntent') {
                 this.handler.state = States.REPORT;
-                this.emitWithState(intentName);
-                return;
+                return this.emitWithState(intentName);
             } else if (intentName === 'NameIntent') {
                 this.handler.state = States.NAME;
-                this.emitWithState(intentName);
-                return;
+                return this.emitWithState(intentName);
             }
         }
         this.emit('LaunchRequest');
@@ -33,8 +30,7 @@ module.exports = {
     'LaunchRequest': function () {
         if (this.attributes.launchCount === 1) {
             this.handler.state = States.NAME;
-            this.emit(':ask', this.t('WELCOME_FIRST'), this.t('WELCOME_FIRST_REPROMPT'));
-            return;
+            return this.emit(':ask', this.t('WELCOME_FIRST'), this.t('WELCOME_FIRST_REPROMPT'));
         }
 
         this.handler.state = States.MAIN;
