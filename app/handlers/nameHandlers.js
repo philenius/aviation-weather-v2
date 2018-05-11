@@ -35,24 +35,22 @@ module.exports = Alexa.CreateStateHandler(States.NAME, {
         );
     },
     'AMAZON.NoIntent': function () {
-        this.emit('NoNameIntent');
+        this.handler.state = States.NAME;
+        this.emitWithState('NoNameIntent');
     },
     'Unhandled': function () {
-        this.emit(':tell', util.random(this.t('UNHANDLED')));
+        this.emit('Unhandled');
     },
     'SessionEndedRequest': function () {
-        console.log('SESSIONENDEDREQUEST');
-        this.response.speak(util.random(this.t('FAREWELL')));
-        this.emit(':responseReady');
+        this.emit('SessionEndedRequest');
     },
     'AMAZON.StopIntent': function () {
-        this.emit('AMAZON.CancelIntent');
+        this.emit('AMAZON.StopIntent');
     },
     'AMAZON.CancelIntent': function () {
-        this.response.speak(util.random(this.t('FAREWELL')));
-        this.emit(':responseReady');
+        this.emit('AMAZON.CancelIntent');
     },
     'AMAZON.HelpIntent': function () {
-        this.emit(':tell', 'Sorry, my developer hasn\'t implemented this feature, yet. Please ask again in a few days.');
+        this.emit('AMAZON.HelpIntent');
     },
 });

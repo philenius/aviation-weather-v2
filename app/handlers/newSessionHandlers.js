@@ -41,7 +41,19 @@ module.exports = {
         this.emit(':ask', this.t('WELCOME'), this.t('WELCOME_REPROMPT'));
     },
     'Unhandled': function () {
+        console.log('### Unhandled');
         this.emit(':tell', util.random(this.t('UNHANDLED')));
+    },
+    'SessionEndedRequest': function () {
+        console.log('### SessionEndedRequest');
+        this.emit(':responseReady');
+    },
+    'AMAZON.StopIntent': function () {
+        this.emit('AMAZON.CancelIntent');
+    },
+    'AMAZON.CancelIntent': function () {
+        this.response.speak(util.random(this.t('FAREWELL')));
+        this.emit(':responseReady');
     },
     'AMAZON.HelpIntent': function () {
         this.emit(':tell', 'Sorry, my developer hasn\'t implemented this feature, yet. Please ask again in a few days.');
