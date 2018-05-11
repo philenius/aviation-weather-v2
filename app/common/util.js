@@ -1,14 +1,9 @@
 'use strict';
 
 module.exports = {
-    'buildICAO': function (letter1, letter2, letter3, letter4) {
-        return this.getFirstLetter(letter1.toUpperCase()) +
-            this.getFirstLetter(letter2.toUpperCase()) +
-            this.getFirstLetter(letter3.toUpperCase()) +
-            this.getFirstLetter(letter4.toUpperCase());
-    },
-    'getFirstLetter': function (natoLiteral) {
-        return natoLiteral.charAt(0);
+    'buildICAO': function (codeword1, codeword2, codeword3, codeword4) {
+        return (codeword1.charAt(0) + codeword2.charAt(0) + codeword3.charAt(0) + codeword4.charAt(0))
+            .toUpperCase();
     },
     'pronounceIcaoCode': function (icaoCode) {
         if (icaoCode === 'KSAC') {
@@ -61,7 +56,7 @@ module.exports = {
     },
 };
 
-const getNatoAlphabetCodewordFor =  (literal) => {
+const getNatoAlphabetCodewordFor = (literal) => {
     literal = literal.toUpperCase();
     switch (literal) {
         case 'A':

@@ -1,6 +1,6 @@
 'use strict';
 
-String.prototype.format = String.prototype.format = function () {
+String.prototype.format = function () {
     var s = this,
         i = arguments.length;
 
