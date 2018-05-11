@@ -3,7 +3,7 @@
 require('./app/common/common');
 
 const Alexa = require('alexa-sdk');
-const handlers = require('./app/handlers/handlers');
+const newSessionHandlers = require('./app/handlers/newSessionHandlers');
 const mainHandlers = require('./app/handlers/mainHandlers');
 const nameHandlers = require('./app/handlers/nameHandlers');
 const reportHandlers = require('./app/handlers/reportHandler');
@@ -22,6 +22,6 @@ exports.handler = function (event, context, callback) {
     }
 
     alexa.resources = SpeechOutput;
-    alexa.registerHandlers(handlers, mainHandlers, nameHandlers, reportHandlers);
+    alexa.registerHandlers(newSessionHandlers, mainHandlers, nameHandlers, reportHandlers);
     alexa.execute();
 };
