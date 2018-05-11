@@ -15,18 +15,36 @@
 * [ ] Let user ask for specific details of METAR / TFA report
 * [ ] Let user store his favorite airport
 
-## VUI
+## VUI (Voice User Interface)
 * **Alexa**, open aviation weather. _..._  
   Tell me the metar report for kilo sierra alpha charlie.
 * **Alexa**, open aviation weather. _..._  
   Tell me the metar report.
 * **Alexa**, ask aviation weather for the metar report.
 * **Alexa**, ask aviation weather for the metar report for kilo sierra alpha charlie.
-* **Alexa**, ask aviation weather for the metar report for alpha alpha alpha alpha.
 
 ## Development
-* Run: 
+* Build the Dockerfile included in this repo:
+  ```bash
+  sudo docker build -t alexa .
+  ```
+* Instanciate a Docker container: 
   ```bash
   sudo docker run -it -v /home/phil/workspace/ChatBots/AlexaSkills/aviation-weather/:/skill alexa
-  bst proxy lambda index.js
   ```
+* Install all dependencies:
+  ```bash
+  npm install
+  ```
+* Run Bespoken proxy and copy the public Bespoken URL:
+  ```bash
+  DEV=true bst proxy lambda index.js
+  ```
+
+## Deployment
+* Create a zip file:
+  ```bash
+  zip -r skill.zip index.js app/ node_modules/
+  ```
+* Log in to the [AWS Management Console](https://aws.amazon.com/console) and upload the zip file to your AWS Lambda function.
+* Copy the ARN of your Lambda function and add it as the skill's endpoint on [https://developer.amazon.com](https://developer.amazon.com).
