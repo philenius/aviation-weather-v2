@@ -30,6 +30,8 @@ module.exports = Alexa.CreateStateHandler(States.REPORT, {
 
         reportAPI.getMetarReportFor(icaoCode).then((alexaOutput) => {
 
+            this.attributes.icao = icaoCode;
+
             this.response.speak(this.t('METAR_REPORT_ANSWER', util.pronounceIcaoCode(icaoCode), alexaOutput.speechOutput));
             this.response.listen(util.random(this.t('METAR_REPORT_ANSWER_REPROMPT')));
             this.response.cardRenderer(alexaOutput.card.title, alexaOutput.card.content);

@@ -39,6 +39,13 @@ module.exports = {
             //optionally pre-fill slots: update the intent object with slot values for which
             //you have defaults, then return Dialog.Delegate with this updated intent
             // in the updatedIntent property
+            if (this.attributes.icao !== '_') {
+                const icao = this.attributes.icao;
+                updatedIntent.slots.firstLetter.value = getNatoAlphabetCodewordFor(icao.charAt(0));
+                updatedIntent.slots.secondLetter.value = getNatoAlphabetCodewordFor(icao.charAt(1));
+                updatedIntent.slots.thirdLetter.value = getNatoAlphabetCodewordFor(icao.charAt(2));
+                updatedIntent.slots.fourthLetter.value = getNatoAlphabetCodewordFor(icao.charAt(3));
+            }
             this.emit(':delegate', updatedIntent);
         } else if (this.event.request.dialogState !== 'COMPLETED') {
             console.log('in not completed');
@@ -52,4 +59,63 @@ module.exports = {
             return this.event.request.intent;
         }
     },
+};
+
+const getNatoAlphabetCodewordFor =  (literal) => {
+    literal = literal.toUpperCase();
+    switch (literal) {
+        case 'A':
+            return 'Alpha';
+        case 'B':
+            return 'Bravo';
+        case 'C':
+            return 'Charlie';
+        case 'D':
+            return 'Delta';
+        case 'E':
+            return 'Echo';
+        case 'F':
+            return 'Foxtrot';
+        case 'G':
+            return 'Golf';
+        case 'H':
+            return 'Hotel';
+        case 'I':
+            return 'India';
+        case 'J':
+            return 'Juliet';
+        case 'K':
+            return 'Kilo';
+        case 'L':
+            return 'Lima';
+        case 'M':
+            return 'Mike';
+        case 'N':
+            return 'November';
+        case 'O':
+            return 'Oscar';
+        case 'P':
+            return 'Papa';
+        case 'Q':
+            return 'Quebec';
+        case 'R':
+            return 'Romeo';
+        case 'S':
+            return 'Sierra';
+        case 'T':
+            return 'Tango';
+        case 'U':
+            return 'Uniform';
+        case 'V':
+            return 'Victor';
+        case 'W':
+            return 'Whiskey';
+        case 'X':
+            return 'X-ray';
+        case 'Y':
+            return 'Yankee';
+        case 'Z':
+            return 'Zulu';
+    }
+    return undefined;
 };

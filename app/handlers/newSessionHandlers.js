@@ -12,6 +12,7 @@ module.exports = {
             this.attributes.launchCount = 1;
             this.attributes.name = '_';
         }
+        this.attributes.icao = '_';
         this.attributes.lastInvocation = new Date();
 
         if (this.event.request.type === 'IntentRequest') {
