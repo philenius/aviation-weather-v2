@@ -25,11 +25,13 @@ module.exports = {
                             let json = JSON.parse(body);
                             let error = json.Error;
                             if (error && error.startsWith('Station Lookup Error: METAR not found for')) {
+                                console.error(`ICAO code ${icaoCode} not found`);
                                 reject(new Error('ICAO code not found'));
                                 return;
                             }
                         } catch (e) {
                         }
+                        console.error(`general error calling API; got http response ${res.statusCode}`);
                         reject(new Error('general error calling API'));
                         return;
                     }
