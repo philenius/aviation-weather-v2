@@ -18,8 +18,8 @@ module.exports = Alexa.CreateStateHandler(States.REPORT, {
 
         let report = this.event.request.intent.slots.report.value.toUpperCase();
 
-        if (report === 'TFA') {
-            return this.emit(':tell', '<say-as interpret-as="interjection">oh boy</say-as>, I don\'t understand TFA reports yet.');
+        if (report === 'TAF') {
+            return this.emit(':tell', '<say-as interpret-as="interjection">oh boy</say-as>, I don\'t understand TAF reports yet.');
         }
 
         let firstLetter = this.event.request.intent.slots.firstLetter.value;
