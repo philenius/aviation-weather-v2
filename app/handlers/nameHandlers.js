@@ -13,7 +13,7 @@ module.exports = Alexa.CreateStateHandler(States.NAME, {
     'NameIntent': function () {
         const nameSlot = this.event.request.intent.slots.name;
         if (nameSlot && nameSlot.value) {
-            this.attributes.name = nameSlot.value;
+            this.attributes.name = nameSlot.value.capitalize();
             this.handler.state = States.MAIN;
             this.emit(':ask', `<say-as interpret-as="interjection">Aloha</say-as> ${this.attributes.name}, it\'s a pleasure to meet you. So, how can I help you?`);
         }
