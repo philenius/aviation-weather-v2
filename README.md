@@ -30,7 +30,7 @@
   ```
 * Instanciate a Docker container: 
   ```bash
-  sudo docker run -it -v /home/phil/workspace/ChatBots/AlexaSkills/aviation-weather/:/skill alexa
+  sudo docker run -it -v /home/phil/workspace/chatBots/alexaSkills/aviation-weather/:/skill alexa
   ```
 * Install all dependencies:
   ```bash
@@ -48,7 +48,7 @@
 sudo docker run -it \
 -v ~/.ask:/home/node/.ask \
 -v ~/.aws:/home/node/.aws \
--v /home/phil/workspace/ChatBots/AlexaSkills/aviation-weather:/home/node/app \
+-v /home/phil/workspace/chatBots/alexaSkills/aviation-weather:/home/node/app \
 martindsouza/amazon-ask-cli bash
 ```
 
