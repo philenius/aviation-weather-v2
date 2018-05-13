@@ -40,11 +40,16 @@
   ```bash
   DEV=true bst proxy lambda index.js
   ```
+* Set the Bespoken URL as the endpoint of your Alexa skill on the [Amazon Developer Portal](https://developer.amazon.com/alexa/console/ask).
 
 ## Deployment
-* Create a zip file:
-  ```bash
-  zip -r skill.zip index.js app/ node_modules/
-  ```
-* Log in to the [AWS Management Console](https://aws.amazon.com/console) and upload the zip file to your AWS Lambda function.
-* Copy the ARN of your Lambda function and add it as the skill's endpoint on [https://developer.amazon.com](https://developer.amazon.com).
+
+```bash
+sudo docker run -it \
+-v ~/.ask:/home/node/.ask \
+-v ~/.aws:/home/node/.aws \
+-v /home/phil/workspace/ChatBots/AlexaSkills/aviation-weather:/home/node/app \
+martindsouza/amazon-ask-cli bash
+```
+
+**Don't forget to set the `timeout` of the AWS Lambda function to 7s because the METAR API might take some time to return a HTTP response.**
