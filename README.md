@@ -10,7 +10,7 @@
 * [x] Fix speech output of METAR report (unit for wind)
 * [x] Implement custom speech output (not using the API anymore)
 * [x] Remember name of user
-* [x] Store ICAO code during session
+* [ ] Store ICAO code during session
 * [ ] ICAO code pronunciation magic
 * [ ] Let user ask for specific details of METAR / TAF report
 * [ ] Let user store his favorite airport

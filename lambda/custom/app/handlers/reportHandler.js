@@ -12,21 +12,44 @@ module.exports = Alexa.CreateStateHandler(States.REPORT, {
         this.emit('NewSession');
     },
     'SelectReportAndAirportIntent': function () {
-        util.delegateSlotCollection.call(this);
+
+        // delegate to Alexa to collect all the required slots
+        const filledSlots = util.delegateSlotCollection.call(this, (event) => {
+            let result = false;
+            const slots = event.request.intent.slots;
+
+            if (slots.report.value && slots.firstLetter.value && slots.secondLetter.value && slots.thirdLetter.value && slots.fourthLetter.value) {
+                result = true;
+            }
+            return result;
+        });
+
+        // delegateSlotCollection may make an asynchronous call, so there
+        // is a chance that filledSlots is null. If it's null we need to
+        // stop SelectReportAndAirportIntent and on the next runtime tick,
+        // this.emit(':delegate') which was called from
+        // delegateSlotCollection will execute.
+        if (!filledSlots) {
+            return;
+        }
+        // at this point, we know that all required slots are filled.
+        const slotValues = util.getSlotValues(filledSlots);
 
         this.handler.state = States.MAIN;
 
-        let report = this.event.request.intent.slots.report.value.toUpperCase();
+        if (!slotValues.report.isValidated) { // if the value of report is not in my slot values
+            return this.emit(
+                ':tell',
+                'I never heard of this type of report before. Sorry, I can only understand METAR and <say-as interpret-as="characters">TAF</say-as> reports.'
+            );
+        }
 
+        const report = slotValues.report.resolved.toUpperCase();
+        const icaoCode = util.buildICAO(slotValues);
+        
         if (report === 'TAF') {
             return this.emit(':tell', '<say-as interpret-as="interjection">oh boy</say-as>, I don\'t understand <say-as interpret-as="characters">TAF</say-as> reports yet.');
         } else if (report === 'METAR') {
-
-            let firstLetter = this.event.request.intent.slots.firstLetter.value;
-            let secondLetter = this.event.request.intent.slots.secondLetter.value;
-            let thirdLetter = this.event.request.intent.slots.thirdLetter.value;
-            let fourthLetter = this.event.request.intent.slots.fourthLetter.value;
-            let icaoCode = util.buildICAO(firstLetter, secondLetter, thirdLetter, fourthLetter);
 
             reportAPI.getMetarReportFor(icaoCode).then((alexaOutput) => {
 
@@ -49,9 +72,6 @@ module.exports = Alexa.CreateStateHandler(States.REPORT, {
                 }
                 this.emit(':responseReady');
             });
-
-        } else {
-            return this.emit(':tell', 'I never heard of this type of report before. Sorry, I can only understand METAR and <say-as interpret-as="characters">TAF</say-as> reports.');
         }
     },
     'Unhandled': function () {
