@@ -31,6 +31,9 @@ module.exports = Alexa.CreateStateHandler(States.MAIN, {
     'SessionEndedRequest': function () {
         this.emit('SessionEndedRequest');
     },
+    'AMAZON.NoIntent': function () {
+        this.emit('AMAZON.CancelIntent');
+    },
     'AMAZON.StopIntent': function () {
         this.emit('AMAZON.StopIntent');
     },
